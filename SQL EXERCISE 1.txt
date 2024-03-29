@@ -1,0 +1,481 @@
+Calculate annual salary:
+SQL> SELECT ENAME,SAL,SAL*12 "AN SAL" FROM EMP;
+
+ENAME             SAL     AN SAL
+---------- ---------- ----------
+SMITH             800       9600
+ALLEN            1600      19200
+WARD             1250      15000
+JONES            2975      35700
+MARTIN           1250      15000
+BLAKE            2850      34200
+CLARK            2450      29400
+SCOTT            3000      36000
+KING             5000      60000
+TURNER           1500      18000
+ADAMS            1100      13200
+JAMES             950      11400
+FORD             3000      36000
+MILLER           1300      15600
+
+
+
+
+
+
+
+Calculate TA, HRA, TAX and GROSS SALARY of all emps.
+10% on sal as TA
+20% on sal as HRA
+5% on sal as TAX
+GROSS = sal+ta+hra-tax
+SQL> select ename,sal,sal*0.1 TA,sal*0.2 HRA,sal*0.05 TAX, sal+sal*0.1+sal*0.2-sal*0.05 GROSS from emp;
+
+ENAME             SAL         TA        HRA        TAX      GROSS
+---------- ---------- ---------- ---------- ---------- ----------
+SMITH             800         80        160         40       1000
+ALLEN            1600        160        320         80       2000
+WARD             1250        125        250       62.5     1562.5
+JONES            2975      297.5        595     148.75    3718.75
+MARTIN           1250        125        250       62.5     1562.5
+BLAKE            2850        285        570      142.5     3562.5
+CLARK            2450        245        490      122.5     3062.5
+SCOTT            3000        300        600        150       3750
+KING             5000        500       1000        250       6250
+TURNER           1500        150        300         75       1875
+ADAMS            1100        110        220         55       1375
+JAMES             950         95        190       47.5     1187.5
+FORD             3000        300        600        150       3750
+MILLER           1300        130        260         65       1625
+
+
+
+
+
+
+
+
+
+Assignment:
+STUDENT
+SID SNAME M1 M2 M3
+1001 A 70 50 80
+1002 B 90 30 60
+calculate total marks and average marks of all students
+
+SQL> create table CL_STUDENT(
+  2       SID NUMBER(10),
+  3       SNAME VARCHAR2(20),
+  4      MARKS_M1 NUMBER(4,2),
+  5      MARKS_M2 NUMBER(4,2),
+  6      MARKS_M3 NUMBER(4,2));
+
+Table created.
+
+
+SQL> INSERT INTO CL_STUDENT VALUES(11,'JAIN_ARNAK',87.80,89.43,79.56);
+
+1 row created.
+
+SQL> INSERT INTO CL_STUDENT VALUES(11,'JAIN_SAFAL',67.80,79.43,89.56);
+
+1 row created.
+
+SQL> INSERT INTO CL_STUDENT VALUES(11,'JAIN_AMAN',57.80,69.43,99.56);
+
+1 row created.
+
+SQL> SELECT * FROM CL_STUDENT;
+
+       SID SNAME                  MARKS_M1   MARKS_M2   MARKS_M3
+---------- -------------------- ---------- ---------- ----------
+        11 JAIN_ARNAK                 87.8      89.43      79.56
+        11 JAIN_SAFAL                 67.8      79.43      89.56
+        11 JAIN_AMAN                  57.8      69.43      99.56
+
+SQL> SELECT SNAME,MARKS_M1+MARKS_M2+MARKS_M3 TOTAL,MARKS_M1+MARKS_M2+MARKS_M3/3 AVG FROM CL_STUDENT;
+
+SNAME                     TOTAL        AVG
+-------------------- ---------- ----------
+JAIN_ARNAK               256.79     203.75
+JAIN_SAFAL               236.79 177.083333
+JAIN_AMAN                226.79 160.416667
+
+
+
+
+
+
+
+
+
+
+
+
+Relational Operators / Comparison Operators:
+
+<column> <relational_operator> <value>
+Syntax:
+
+sal=3000
+Example:
+
+ORACLE SQL provides following Relational Operators:
+> greater than sal>3000
+>= greater than or equals to sal>=3000
+< less than sal<3000
+<= less than or equals to sal<=3000
+= equals to sal=3000
+!= / <> / ^= not equals to sal!=3000
+
+Examples on Relational Operators:
+
+EMP TABLE-:
+
+SQL> SELECT * FROM EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10
+      7788 SCOTT      ANALYST         7566 09-DEC-82       3000                    20
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500                    30
+      7876 ADAMS      CLERK           7788 12-JAN-83       1100                    20
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10
+
+
+
+
+
+
+
+
+
+
+
+Display all MANAGERS records:
+SQL> SELECT ENAME,JOB,SAL FROM EMP WHERE JOB='MANAGER';
+
+ENAME      JOB              SAL
+---------- --------- ----------
+JONES      MANAGER         2975
+BLAKE      MANAGER         2850
+CLARK      MANAGER         2450
+
+
+
+
+
+
+
+
+Display the emp records who are working in deptno 10:
+SQL> SELECT ENAME,SAL,DEPTNO FROM EMP
+  2  ORDER BY DEPTNO;
+
+ENAME             SAL     DEPTNO
+---------- ---------- ----------
+CLARK            2450         10
+KING             5000         10
+MILLER           1300         10
+JONES            2975         20
+FORD             3000         20
+ADAMS            1100         20
+SMITH             800         20
+SCOTT            3000         20
+WARD             1250         30
+TURNER           1500         30
+ALLEN            1600         30
+JAMES             950         30
+BLAKE            2850         30
+MARTIN           1250         30
+
+
+SQL> SELECT ENAME,DEPTNO,SAL FROM EMP WHERE DEPTNO<>30;
+
+ENAME          DEPTNO        SAL
+---------- ---------- ----------
+SMITH              20        800
+JONES              20       2975
+CLARK              10       2450
+SCOTT              20       3000
+KING               10       5000
+ADAMS              20       1100
+FORD               20       3000
+MILLER             10       1300
+
+
+
+
+
+
+
+
+
+
+
+
+Display 7698 emp record:
+
+SQL> SELECT ENAME,EMPNO,SAL FROM EMP WHERE EMPNO=7839;
+
+ENAME           EMPNO        SAL
+---------- ---------- ----------
+KING             7839       5000
+
+
+
+
+
+
+
+
+Display the emp record whose name is WARD:
+
+SQL> SELECT ENAME,SAL FROM EMP WHERE ENAME='WARD';
+
+ENAME             SAL
+---------- ----------
+WARD             1250
+
+
+
+
+
+
+
+
+Display all emp records except managers:
+SQL> SELECT ENAME,JOB,SAL FROM EMP
+  2  ORDER BY SAL;
+
+ENAME      JOB              SAL
+---------- --------- ----------
+SMITH      CLERK            800
+JAMES      CLERK            950
+ADAMS      CLERK           1100
+WARD       SALESMAN        1250
+MARTIN     SALESMAN        1250
+MILLER     CLERK           1300
+TURNER     SALESMAN        1500
+ALLEN      SALESMAN        1600
+CLARK      MANAGER         2450
+BLAKE      MANAGER         2850
+JONES      MANAGER         2975
+SCOTT      ANALYST         3000
+FORD       ANALYST         3000
+KING       PRESIDENT       5000
+
+
+
+
+
+
+
+
+Display all emp records except 30th dept emps:
+
+SQL> SELECT ENAME,DEPTNO,SAL FROM EMP WHERE DEPTNO<>30;
+
+ENAME          DEPTNO        SAL
+---------- ---------- ----------
+SMITH              20        800
+JONES              20       2975
+CLARK              10       2450
+SCOTT              20       3000
+KING               10       5000
+ADAMS              20       1100
+FORD               20       3000
+MILLER             10       1300
+
+
+
+
+
+
+
+
+Display the emp records whose salary is 3000 or more:
+
+
+     SELECT ENAME,SAL FROM EMP WHERE SAL>=3000;
+
+ENAME             SAL
+---------- ----------
+SCOTT            3000
+KING             5000
+FORD             3000
+
+
+
+
+
+
+
+Display the emp records whose salary is 1250 or less:
+
+SQL> SELECT ENAME,SAL FROM EMP WHERE SAL<=1230;
+
+ENAME             SAL
+---------- ----------
+SMITH             800
+ADAMS            1100
+JAMES             950
+
+
+
+
+
+
+
+Display the emp records who joined after 1981:
+
+SQL> SELECT ENAME,HIREDATE FROM EMP WHERE HIREDATE>'31-DEC-1981';
+
+ENAME      HIREDATE
+---------- ---------
+SCOTT      09-DEC-82
+ADAMS      12-JAN-83
+MILLER     23-JAN-82
+
+
+
+
+
+
+
+
+Display the emp records who joined before 1981:
+SQL> SELECT ENAME,HIREDATE FROM EMP WHERE HIREDATE<='1-JAN-1981';
+
+ENAME      HIREDATE
+---------- ---------
+SMITH      17-DEC-80
+
+
+
+
+
+
+
+Display the emp records whose annual salary is
+more than 30000:
+
+SQL> SELECT ENAME,SAL,SAL*12 "AN SAL" FROM EMP;
+
+ENAME             SAL     AN SAL
+---------- ---------- ----------
+SMITH             800       9600
+ALLEN            1600      19200
+WARD             1250      15000
+JONES            2975      35700
+MARTIN           1250      15000
+BLAKE            2850      34200
+CLARK            2450      29400
+SCOTT            3000      36000
+KING             5000      60000
+TURNER           1500      18000
+ADAMS            1100      13200
+JAMES             950      11400
+FORD             3000      36000
+MILLER           1300      15600
+
+14 rows selected.
+
+SQL> SELECT ENAME,SAL,SAL*12 "AN SAL" FROM EMP WHERE SAL*12>=30000;
+
+ENAME             SAL     AN SAL
+---------- ---------- ----------
+JONES            2975      35700
+BLAKE            2850      34200
+SCOTT            3000      36000
+KING             5000      60000
+FORD             3000      36000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
