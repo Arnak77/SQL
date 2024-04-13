@@ -1,0 +1,337 @@
+
+ALTER:
+
+
+    It is DDL command
+
+    ALTER => Change
+
+• Alter Command is used to change structure of table
+
+Note:
+• to modify table data use UPDATE
+• to modify table structure use ALTER
+
+
+Using ALTER command we can:
+• Add the Columns => ADD
+• Rename the Columns => RENAME COLUMN
+• Drop the Columns => DROP
+• Modify the field sizes => MODIFY
+• Modify the data types => MODIFY
+
+
+
+
+
+
+SQL> create table student
+  2  (
+  3  sid number(10),
+  4  sname varchar2(10),
+  5  m1 number(10));
+
+Table created.
+
+
+SQL> insert into student values(&sid,'&sname',&m1)
+  2  ;
+
+
+
+
+SQL> /
+Enter value for sid: 1001
+Enter value for sname: AA
+Enter value for m1: 67
+old   1: insert into student values(&sid,'&sname',&m1)
+new   1: insert into student values(1001,'AA',67)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 1002
+Enter value for sname: BB
+Enter value for m1: 85
+old   1: insert into student values(&sid,'&sname',&m1)
+new   1: insert into student values(1002,'BB',85)
+
+1 row created.
+
+
+
+
+
+SQL> select * from student;
+
+       SID SNAME              M1
+---------- ---------- ----------
+      1001 AA                 67
+      1002 BB                 85
+
+
+
+
+
+ Q Adding a column [m2 column]:
+
+SQL> ALTER TABLE STUDENT ADD M2 NUMBER(5,2);
+
+Table altered.
+
+SQL> select * from student;
+
+       SID SNAME              M1         M2
+---------- ---------- ---------- ----------
+      1001 AA                 67
+      1002 BB                 85
+
+
+
+
+
+
+ Q Adding a column [m3,m4 column]:
+
+SQL> ALTER TABLE STUDENT ADD(M3 NUMBER(3,2),M4 NUMBER (3,2));
+
+Table altered.
+
+SQL> select * from student;
+
+       SID SNAME              M1         M2         M3         M4
+---------- ---------- ---------- ---------- ---------- ----------
+      1001 AA                 67
+      1002 BB                 85
+
+
+
+
+
+
+
+SQL> ALTER TABLE STUDENT RENAME COLUMN M4 TO MATH;
+
+Table altered.
+
+SQL> select * from student;
+
+       SID SNAME              M1         M2         M3       MATH
+---------- ---------- ---------- ---------- ---------- ----------
+      1001 AA                 67
+      1002 BB                 85
+
+
+
+
+SQL> ALTER TABLE STUDENT RENAME COLUMN M3 TO ENG;
+
+Table altered.
+
+
+SQL> ALTER TABLE STUDENT RENAME COLUMN M1 TO HINDI;
+
+Table altered.
+
+SQL> select * from student;
+
+       SID SNAME           HINDI        HIS        ENG       MATH
+---------- ---------- ---------- ---------- ---------- ----------
+      1001 AA                 67
+      1002 BB                 85
+
+
+
+
+Q Dropping a column [drop maths column]:
+
+SQL> ALTER TABLE STUDENT DROP (MATH);
+
+Table altered.
+
+
+
+
+
+
+Q Dropping Multiple columns [drop ENG and HIS]:
+
+SQL> ALTER TABLE STUDENT DROP (ENG,HIS);
+
+Table altered.
+
+SQL> select * from student;
+
+       SID SNAME           HINDI
+---------- ---------- ----------
+      1001 AA                 67
+      1002 BB                 85
+
+
+
+
+
+
+
+
+SQL> SET PAGESIZE 80 LINESIZE 80
+SQL> DESC STUDENT
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                                NUMBER(10)
+ SNAME                                              VARCHAR2(10)
+ HINDI                                              NUMBER(10)
+
+
+
+
+ Q Modifying Field size [increase HINDI field size from 10 to 12]:
+
+SQL> ALTER TABLE STUDENT MODIFY HINDI NUMBER(12);
+
+Table altered.
+
+SQL> DESC STUDENT
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                                NUMBER(20)
+ SNAME                                              VARCHAR2(10)
+ HINDI                                              NUMBER(12)
+
+
+
+
+SQL> ALTER TABLE STUDENT MODIFY SNAME VARCHAR2(5);
+
+Table altered.
+SQL> DESC STUDENT
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                                NUMBER(20)
+ SNAME                                              VARCHAR2(5)
+ HINDI                                              NUMBER(12)
+
+
+
+
+EXAMPLE...................................................
+
+
+
+
+SQL> DESC EMPLOYEE
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMNO                                               NUMBER(10)
+ ENAME                                              VARCHAR2(10)
+ ESAL                                               NUMBER(8,2)
+ TA                                                 NUMBER(8,2)
+ HRA                                                NUMBER(8,2)
+ TAX                                                NUMBER(8,2)
+
+
+SQL> ALTER TABLE EMPLOYEE ADD GROSS NUMBER(8,2);
+
+Table altered.
+
+SQL> DESC EMPLOYEE
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMNO                                               NUMBER(10)
+ ENAME                                              VARCHAR2(10)
+ ESAL                                               NUMBER(8,2)
+ TA                                                 NUMBER(8,2)
+ HRA                                                NUMBER(8,2)
+ TAX                                                NUMBER(8,2)
+ GROSS                                              NUMBER(8,2)
+
+
+
+
+SQL> UPDATE EMPLOYEE SET GROSS=ESAL+ESAL*0.1+ESAL*0.2-ESAL*0.05;
+
+3 rows updated.
+
+SQL> SELECT * FROM EMPLOYEE;
+
+      EMNO ENAME            ESAL         TA        HRA        TAX      GROSS
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+      1001 A                8000        800       1600        400      10000
+      1002 B                8500        850       1700        425      10625
+      1003 C                7500        750       1500        375       9375
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
